@@ -1,0 +1,16 @@
+server {
+    listen 80;
+    server_name <%= @hostname %> www.<%= @hostname %>;
+    root <%= @path %>;
+
+    sendfile off;
+
+    index index.php index.html;
+    location / {
+        try_files $uri $uri/ /index.html$is_args$args;
+        #autoindex on;
+    }
+
+    access_log  /var/log/nginx/<%= @hostname %>.access.log  main;
+    error_log  /var/log/nginx/<%= @hostname %>.error.log  error;
+}
