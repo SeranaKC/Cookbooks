@@ -1,3 +1,4 @@
+include_recipe "web-server";
 include_recipe "nginx";
 include_recipe "nodejs";
 
@@ -22,7 +23,13 @@ execute "install npm things" do
             npm install &&
             npm install gulp-file &&
             npm -g install gulp"
-    user node['compass']['user']
+    user 'root'
+end
+
+execute "chown-data-www" do
+  command "chown -R #{node['compass']['user']}:#{node['compass']['user']} #{node['compass']['path']}"
+  user "root"
+  action :run
 end
 
 # Creates the nginx virtual host
