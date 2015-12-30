@@ -1,6 +1,7 @@
 include_recipe "web-server";
 include_recipe "nginx";
 include_recipe "nodejs";
+include_recipe "npm";
 
 include_recipe "compass::deploy";
 
@@ -15,14 +16,28 @@ apt_package 'build-essential' do
     version node['build-essential']['version']
 end
 
-# Install NPM things
-# fix version. maybe don't do this use cookbooks
-execute "install npm things" do
+# Install npm things
+npm_package "npm" do
+    version node['npm']['version']
+    action :install
+    path node['compass']['path']
+end
+
+npm_package "gulp-file" do
+    version node['gulp-file']['version']
+    action :install
+    path node['compass']['path']
+end
+
+npm_package "gulp" do
+    version node['gulp']['version']
+    action :install
+    path node['compass']['path']
+end
+
+execute "Install Rubix packages" do
     command "cd #{node['compass']['path']} &&
-            npm -g install npm@#{node['npm']['version']} &&
-            npm install &&
-            npm install gulp-file &&
-            npm -g install gulp"
+            npm install"
     user 'root'
 end
 
