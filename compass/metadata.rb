@@ -1,11 +1,12 @@
-name             'moonshot'
+name             'compass'
 maintainer       'Dave Wong'
 maintainer_email 'dave.wong@jumbleberry.com'
 license          'All rights reserved'
-description      'Installs Moonshot'
-long_description 'Installs Moonshot'
+description      'Installs Compass'
+long_description 'Installs Compass'
 version          '0.0.1'
 
-depends "rubix"
+depends "apt"
 depends "nginx"
 depends "nodejs"
+depends "github-auth"
