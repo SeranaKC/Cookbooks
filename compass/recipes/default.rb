@@ -22,7 +22,7 @@ execute "install npm things" do
             npm install &&
             npm install gulp-file &&
             npm -g install gulp"
-    user 'root'
+    user node['compass']['user']
 end
 
 # Creates the nginx virtual host
