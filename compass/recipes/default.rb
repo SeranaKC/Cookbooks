@@ -2,8 +2,6 @@ include_recipe "web-server";
 include_recipe "nginx";
 include_recipe "nodejs";
 
-# Check /var/www symlink
-
 include_recipe "compass::deploy";
 
 # Update apt
@@ -14,12 +12,14 @@ end
 
 apt_package 'build-essential' do
     action :install
+    version node['build-essential']['version']
 end
 
 # Install NPM things
+# fix version. maybe don't do this use cookbooks
 execute "install npm things" do
     command "cd #{node['compass']['path']} &&
-            npm -g install npm@latest &&
+            npm -g install npm@#{node['npm']['version']} &&
             npm install &&
             npm install gulp-file &&
             npm -g install gulp"
